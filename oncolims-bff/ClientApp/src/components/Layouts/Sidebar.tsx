@@ -15,17 +15,15 @@ import classNames from 'classnames'
 import {Route, NavLink } from "react-router-dom"
 import { navigation } from '../../routes/navigation'
 
-
-
-interface SidebarProps {
+export interface SidebarProps {
   children: React.ReactNode
 }
 
-export default function Example({children}: SidebarProps) {
+export function Sidebar({children}: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div className="h-screen flex overflow-hidden">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -156,12 +154,12 @@ export default function Example({children}: SidebarProps) {
                   <div>  
                     <img
                       className="inline-block h-9 w-9 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                      src={"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
+                      alt={"TC"}
                     />
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-white">Tom Cook</p>
+                    <p className="text-sm font-medium text-white">{"Tom Cook"}</p>
                     <p className="text-xs font-medium text-emerald-200 group-hover:text-white">View profile</p>
                   </div>
                 </div>
@@ -181,13 +179,40 @@ export default function Example({children}: SidebarProps) {
           </button>
         </div>
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-          <div className="py-6">
-            <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-              {children}
-            </div>
-          </div>
+          {children}
         </main>
       </div>
+    </div>
+  )
+}
+
+
+
+
+export interface IProfileFooter {
+  name: string | undefined;
+  avatarSource: string | undefined;
+  alt: string;
+}
+
+export function ProfileFooter({name, avatarSource, alt}:IProfileFooter){
+  return (
+    <div className="flex-shrink-0 flex border-t border-emerald-800 p-4">
+      <a href="#" className="flex-shrink-0 w-full group block">
+        <div className="flex items-center">
+          <div>  
+            <img
+              className="inline-block h-9 w-9 rounded-full"
+              src={avatarSource}
+              alt={alt}
+            />
+          </div>
+          <div className="ml-3">
+            <p className="text-sm font-medium text-white">{name}</p>
+            <p className="text-xs font-medium text-emerald-200 group-hover:text-white">View profile</p>
+          </div>
+        </div>
+      </a>
     </div>
   )
 }

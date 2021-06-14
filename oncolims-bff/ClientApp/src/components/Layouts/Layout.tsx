@@ -1,18 +1,8 @@
 import React from 'react'
-import Sidebar from './Sidebar'
+import { Sidebar, IProfileFooter, ProfileFooter, SidebarProps } from './Sidebar'
 import useUser from '../../apis/auth/user'
 import { UseQueryResult } from 'react-query'
-
-
-interface SidebarProps {
-  children: React.ReactNode,
-//   navigation: {
-//     name: string;
-//     exact: boolean;
-//     href: string;
-//     icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
-// }[]
-}
+import restricted from '../../Images/safe.png'
 
 interface IClaim {
   type: string;
@@ -28,9 +18,9 @@ function Layout({children}: SidebarProps) {
   let name = data?.find(claim => claim.type === 'name') ||  data?.find(claim => claim.type === 'sub');
 
   return (    
-    <div className="min-h-screen max-h-screen bg-gray-100">
+    <div className="min-h-screen max-h-screen bg-gray-50">
       <Sidebar>
-      <div className="ml-10 space-x-4">
+      <div className="ml-10 mt-5 space-x-4">
           {
             !name && (
               <a
@@ -59,10 +49,17 @@ function Layout({children}: SidebarProps) {
           </a> */}
         </div>
         
-        <div className="py-5">
-          {name?.value}
-        </div>
-        {children}
+        {name ? 
+          <div className="py-6">
+            <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+              {children} 
+            </div>
+          </div>
+        : (
+          <div className="flex flex-1 max-w-2xl mx-auto">
+            <img src={restricted} alt="unauthorized" className="object-cover" />
+          </div>
+        )}
       </Sidebar>
     </div>
   )
