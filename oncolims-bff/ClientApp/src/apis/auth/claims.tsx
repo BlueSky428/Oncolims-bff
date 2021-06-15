@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-const userKeys = {
-  // users: ['users'],
-  // user: (id) => [...userKeys.users, id]
+const claimsKeys = {
+  claim: ['claim']
+  // claims: ['claims'],
+  // claims: (id) => [...claimsKeys.claims, id]
 }
 
 const config = {
@@ -12,15 +13,15 @@ const config = {
   }
 }
 
-const fetchUser = async () => 
+const fetchClaims = async () => 
   axios.get('/bff/user', config)
     .then((res) => res.data);
 
 
 export default function useUser() {
   return useQuery(
-    "user", 
-    async () => fetchUser(),
+    claimsKeys.claim, 
+    async () => fetchClaims(),
     {
     }
   )
