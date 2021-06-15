@@ -12,7 +12,7 @@ axios.get(`${patientsBaseUrl}/${patientId}`, config)
 
 export default function usePatient(patientId) {
 return useQuery(
-    patientKeys.patient(patientId),
+    patientKeys.detail(patientId),
     async () => fetchPatient(patientId),
     {
       enabled: false // prevents it from running by default when it will be null

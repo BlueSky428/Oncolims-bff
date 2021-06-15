@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { patientsBaseUrl, queryClient } from '../constants'
+import { patientsBaseUrl, queryClient, patientKeys } from '../constants'
 import { useMutation } from 'react-query'
 
 export default function useCreatePost() {
@@ -26,11 +26,11 @@ export default function useCreatePost() {
         // return () => queryClient.setQueryData(['patients','page'], oldPosts)
       },
       onError: (error, values, rollback) => {
-        console.log(error.response.status)
-        console.log(error.response.data.errors)
+        // console.log(error.response.status)
+        // console.log(error.response.data.errors)
         // rollback()
       },
-      onSuccess: () => queryClient.invalidateQueries(['patients','page']),
+      onSuccess: () => queryClient.invalidateQueries(patientKeys.list),
     }
   )
 }

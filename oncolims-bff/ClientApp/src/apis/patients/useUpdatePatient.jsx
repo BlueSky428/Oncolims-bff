@@ -12,7 +12,7 @@ return useMutation(
     axios.put(`${patientsBaseUrl}/${values.patientId}`, values), 
     {
       onMutate: (values) => {
-        queryClient.cancelQueries(patientKeys.listBase)
+        queryClient.cancelQueries(patientKeys.lists)
 
         // const oldPost = queryCache.getQueryData(['posts', values.id])
 
@@ -22,8 +22,8 @@ return useMutation(
       },
       onError: (error, values, rollback) => rollback(),
       onSuccess: (data, variables) => {
-        queryClient.invalidateQueries(patientKeys.listBase)
-        // queryCache.invalidateQueries(['posts', variables.id])
+        queryClient.invalidateQueries(patientKeys.lists)
+        queryClient.invalidateQueries(patientKeys.detail(values.patientId))
       },
     }
 )}

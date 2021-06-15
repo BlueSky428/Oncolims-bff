@@ -31,7 +31,7 @@ const fetchPatients = async ({pageNumber = 1, filter}) => {
 // TODO Update to infinite query to fetch next page automatically
 export function usePatients({pageNumber, filter}) {
     return useQuery(
-        patientKeys.patients(pageNumber),
+        patientKeys.list(filter, pageNumber),
         async () => fetchPatients({pageNumber, filter}),
         {
             keepPreviousData: true,
@@ -41,7 +41,7 @@ export function usePatients({pageNumber, filter}) {
                 // add individual patients to cache
                 for (const patient of patients.data) {
                   queryClient.setQueryData(
-                    patientKeys.patient(patient.patientId),
+                    patientKeys.detail(patient.patientId),
                     patient
                   )
                 }
