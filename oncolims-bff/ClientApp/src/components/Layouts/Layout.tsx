@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar, IProfileFooter, ProfileFooter, SidebarProps } from './Sidebar'
+import { Sidebar, IProfileFooter, ProfileFooter, SidebarContent, SidebarProps } from './Sidebar'
 import useClaim from '../../apis/auth/claims'
 import { UseQueryResult } from 'react-query'
 import restricted from '../../Images/safe.png'
@@ -10,12 +10,16 @@ function Layout({children}: SidebarProps) {
   const claims = useClaim();
   let data = claims?.data;
   let logoutUrl = data?.find(claim => claim.type === 'bff:logout_url') 
-  let name = data?.find(claim => claim.type === 'name') ||  data?.find(claim => claim.type === 'sub');
+  let nameDict = data?.find(claim => claim.type === 'name') ||  data?.find(claim => claim.type === 'sub');
+  let name = nameDict?.value;
 
   return (    
-    <div className="min-h-screen max-h-screen bg-gray-50">
+    <div className="h-screen flex overflow-hidden bg-gray-50">
       <Sidebar>
-      <div className="ml-10 mt-5 space-x-4">
+      </Sidebar>
+
+      <SidebarContent>
+        <div className="ml-10 mt-5 space-x-4">
           {
             !name && (
               <a
@@ -43,7 +47,6 @@ function Layout({children}: SidebarProps) {
             Register
           </a> */}
         </div>
-        
         {name ? 
           <div className="py-6">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
@@ -55,7 +58,7 @@ function Layout({children}: SidebarProps) {
             <img src={restricted} alt="unauthorized" className="object-cover" />
           </div>
         )}
-      </Sidebar>
+      </SidebarContent>
     </div>
   )
 }

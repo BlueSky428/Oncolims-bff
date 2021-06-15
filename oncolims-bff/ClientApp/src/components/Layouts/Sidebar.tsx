@@ -2,17 +2,11 @@
 import React, { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
   MenuIcon,
-  UsersIcon,
   XIcon,
 } from '@heroicons/react/outline'
 import classNames from 'classnames'
-import {Route, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { navigation } from '../../routes/navigation'
 
 export interface SidebarProps {
@@ -23,7 +17,7 @@ export function Sidebar({children}: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="h-screen flex overflow-hidden">
+    <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -95,23 +89,9 @@ export function Sidebar({children}: SidebarProps) {
                   ))}
                 </nav>
               </div>
-              <div className="flex-shrink-0 flex border-t border-emerald-800 p-4">
-                <a href="#" className="flex-shrink-0 group block">
-                  <div className="flex items-center">
-                    <div>
-                      <img
-                        className="inline-block h-10 w-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-base font-medium text-white">Tom Cook</p>
-                      <p className="text-sm font-medium text-emerald-200 group-hover:text-white">View profile</p>
-                    </div>
-                  </div>
-                </a>
-              </div>
+
+              {children}
+
             </div>
           </Transition.Child>
           <div className="flex-shrink-0 w-14" aria-hidden="true">
@@ -147,72 +127,53 @@ export function Sidebar({children}: SidebarProps) {
                   </NavLink>
                 ))}
               </nav>
-            </div>
-            <div className="flex-shrink-0 flex border-t border-emerald-800 p-4">
-              <a href="#" className="flex-shrink-0 w-full group block">
-                <div className="flex items-center">
-                  <div>  
-                    <img
-                      className="inline-block h-9 w-9 rounded-full"
-                      src={"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
-                      alt={"TC"}
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-white">{"Tom Cook"}</p>
-                    <p className="text-xs font-medium text-emerald-200 group-hover:text-white">View profile</p>
-                  </div>
-                </div>
-              </a>
-            </div>
+            </div>     
+
+            {children}
+            
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-0 flex-1 overflow-hidden">
-        <div className="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
-          <button
-            className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <span className="sr-only">Open sidebar</span>
-            <MenuIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-          {children}
-        </main>
+
+      <div className="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
+        <button
+          className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
+          onClick={() => setSidebarOpen(true)}
+        >
+          <span className="sr-only">Open sidebar</span>
+          <MenuIcon className="h-6 w-6" aria-hidden="true" />
+        </button>
       </div>
+    </>
+  )
+}
+
+export interface SidebarContentProps {
+  children: React.ReactNode,
+}
+
+export function SidebarContent({children}: SidebarContentProps){
+  return (
+    <div className="flex flex-col w-0 flex-1 overflow-hidden">
+      <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+        {children}
+      </main>
     </div>
   )
 }
 
 
-
-
 export interface IProfileFooter {
-  name: string | undefined;
-  avatarSource: string | undefined;
-  alt: string;
+  // name: string | undefined;
+  // avatarSource: string | undefined;
+  // alt: string;
+  children: React.ReactNode
 }
 
-export function ProfileFooter({name, avatarSource, alt}:IProfileFooter){
+export function ProfileFooter({children}:IProfileFooter){
   return (
     <div className="flex-shrink-0 flex border-t border-emerald-800 p-4">
-      <a href="#" className="flex-shrink-0 w-full group block">
-        <div className="flex items-center">
-          <div>  
-            <img
-              className="inline-block h-9 w-9 rounded-full"
-              src={avatarSource}
-              alt={alt}
-            />
-          </div>
-          <div className="ml-3">
-            <p className="text-sm font-medium text-white">{name}</p>
-            <p className="text-xs font-medium text-emerald-200 group-hover:text-white">View profile</p>
-          </div>
-        </div>
-      </a>
+      {children}
     </div>
   )
 }
