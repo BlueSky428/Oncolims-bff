@@ -16,37 +16,42 @@ function Layout({children}: SidebarProps) {
   return (    
     <div className="h-screen flex overflow-hidden bg-gray-50">
       <Sidebar>
-      </Sidebar>
-
-      <SidebarContent>
-        <div className="ml-10 mt-5 space-x-4">
+        <ProfileFooter>
           {
-            !name && (
-              <a
-                href="/bff/login?returnUrl=/"
-                className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
+            !name ? (
+              <a 
+              href="/bff/login?returnUrl=/"
+                className="w-full inline-block bg-emerald-500 py-2 px-4 border border-transparent rounded-md text-base text-center font-medium text-white hover:bg-opacity-75"
               >
                 Login
               </a>
+            ) : (
+              <div className="flex-shrink-0 group block md:w-full ">
+                <div className="flex items-center">
+                  <div>  
+                    <img
+                      className="inline-block h-10 w-10 md:h-9 md:w-9 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt={`${name} Avatar`}
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <p className="block text-base font-medium text-white md:text-sm">{name}</p>
+                    <a 
+                      href={logoutUrl?.value}
+                      className="block mt-1 text-sm font-medium text-emerald-200 group-hover:text-white md:text-xs"
+                    >
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
             )
           }
-          {
-            name && (
-              <a
-                href={logoutUrl?.value}
-                className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
-              >
-                Logout
-              </a>
-            )
-          }
-          {/* <a
-            href="#"
-            className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
-          >
-            Register
-          </a> */}
-        </div>
+        </ProfileFooter>
+      </Sidebar>
+
+      <SidebarContent>
         {name ? 
           <div className="py-6">
             <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
