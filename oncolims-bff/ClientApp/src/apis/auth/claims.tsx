@@ -13,7 +13,7 @@ const config = {
   }
 }
 
-const fetchClaims = async () => 
+const fetchClaims = async (): Promise<Record<string, string>[]> => 
   axios.get('/bff/user', config)
     .then((res) => res.data);
 

@@ -4,17 +4,12 @@ import useClaim from '../../apis/auth/claims'
 import { UseQueryResult } from 'react-query'
 import restricted from '../../Images/safe.png'
 
-interface IClaim {
-  type: string;
-}
-
 function Layout({children}: SidebarProps) {
-  const claims: UseQueryResult = useClaim();
+
+  // TODO abstract out auth
+  const claims = useClaim();
   let data = claims?.data;
-  // @ts-ignore
   let logoutUrl = data?.find(claim => claim.type === 'bff:logout_url') 
-  
-  // @ts-ignore
   let name = data?.find(claim => claim.type === 'name') ||  data?.find(claim => claim.type === 'sub');
 
   return (    
